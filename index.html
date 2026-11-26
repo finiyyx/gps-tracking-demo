@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPS Tracking Demo</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>📍 GPS Tracking Demo</h1>
+  <span id="conn" class="pill">…</span>
+</header>
+
+<main>
+  <aside id="panel">
+    <section>
+      <h2>Sumber data</h2>
+      <div class="tabs" id="tabs">
+        <button data-mode="sim" class="active">Simulasi</button>
+        <button data-mode="phone">GPS Ponsel</button>
+        <button data-mode="api">API</button>
+      </div>
+
+      <div class="mode" id="mode-sim">
+        <p class="hint">3 kendaraan virtual berkeliling Jakarta lengkap dengan baterai &amp; kecepatan. Tidak butuh izin apa pun.</p>
+      </div>
+
+      <div class="mode hidden" id="mode-phone">
+        <label>Nama perangkat <input id="phoneName" value="Ponsel saya"></label>
+        <label>Kirim ke API (opsional, POST JSON)
+          <input id="postUrl" placeholder="https://server-anda.com/api/location"></label>
+        <label>Header Authorization (opsional)
+          <input id="postAuth" placeholder="Bearer TOKEN"></label>
+        <p class="hint">Butuh <b>HTTPS</b> (atau localhost) dan izin lokasi. Baterai hanya tersedia di Chrome/Edge Android.</p>
+      </div>
+
+      <div class="mode hidden" id="mode-api">
+        <label>URL API (GET, JSON)
+          <input id="apiUrl" placeholder="https://server-anda.com/api/devices"></label>
+        <label>Header Authorization (opsional)
+          <input id="apiAuth" placeholder="Bearer TOKEN"></label>
+        <label>Interval (detik) <input id="apiInterval" type="number" min="1" value="5"></label>
+        <label>Pemetaan field (JSON, dot-path)
+          <textarea id="apiMap" rows="9"></textarea></label>
+        <p class="hint">Server harus mengaktifkan CORS. Lihat README.</p>
+      </div>
+
+      <div class="row">
+        <button id="start" class="primary">▶ Mulai</button>
+        <button id="stop" disabled>■ Stop</button>
+        <button id="clear">Hapus jejak</button>
+      </div>
+      <div id="msg" class="msg"></div>
+    </section>
+
+    <section>
+      <h2>Perangkat <span id="count" class="pill">0</span></h2>
+      <ul id="list"></ul>
+    </section>
+
+    <section id="detail">
+      <h2>Detail</h2>
+      <p class="hint">Pilih perangkat di daftar atau di peta.</p>
+    </section>
+  </aside>
+  <div id="map"></div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
